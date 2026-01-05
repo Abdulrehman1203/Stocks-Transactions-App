@@ -2,7 +2,7 @@
 
 A full-stack stock Trading and Portfolio management application. This project allows users to view live cryptocurrency data, simulate trades, and track their portfolio performance in real-time.
 
-## 🚀 Features
+##  Features
 
 - **🔐 Secure Authentication**: 
   - User registration with **bcrypt** password hashing.
@@ -28,7 +28,7 @@ A full-stack stock Trading and Portfolio management application. This project al
   - Clean and intuitive Dashboard.
   - Toast notifications for user feedback.
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 ### Backend
 - **Framework**: FastAPI (Python)
@@ -43,7 +43,7 @@ A full-stack stock Trading and Portfolio management application. This project al
 - **State Management**: React Context API (`AuthContext`)
 - **HTTP Client**: Axios
 
-## ⚙️ Installation & Setup
+##  Installation & Setup
 
 ### Prerequisites
 - Python 3.9+
@@ -123,10 +123,10 @@ Once the backend is running, you can access the interactive API docs (Swagger UI
 - `POST /transactions`: Buy/Sell stocks (Protected).
 - `GET /api/crypto/top20`: Fetch live crypto market data.
 
-## 🛡️ Security Notes
+##  Security Notes
 - Passwords are **never** stored in plain text.
 - API restricts Cross-Origin Resource Sharing (CORS) to `http://localhost:3000` by default.
 - Users must be logged in to perform trades.
 
-## 📝 License
+##  License
 This project is for educational purposes.
