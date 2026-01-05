@@ -1,8 +1,42 @@
-# 📈 Basic Stocks App
+# 📈 Stocks & Transactions App
 
-A full-stack stock Trading and Portfolio management application. This project allows users to view live cryptocurrency data, simulate trades, and track their portfolio performance in real-time.
+![Python](https://img.shields.io/badge/Python-3.9%2B-blue?style=for-the-badge&logo=python)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.68%2B-009688?style=for-the-badge&logo=fastapi&logoColor=white)
+![React](https://img.shields.io/badge/React-18.0%2B-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-13%2B-336791?style=for-the-badge&logo=postgresql&logoColor=white)
 
-##  Features
+A full-stack Stock Trading and Portfolio management application. This project enables users to view live cryptocurrency data via **CoinGecko**, simulate trades, and track portfolio performance with **O(1) aggregation efficiency**.
+
+## 📸 Screenshots
+
+| Dashboard | Portfolio |
+|-----------|-----------|
+| ![Dashboard](https://placehold.co/600x400?text=Dashboard+Preview) | ![Portfolio](https://placehold.co/600x400?text=Portfolio+Preview) |
+*(Add your actual screenshots here)*
+
+## 📂 Project Structure
+
+```plaintext
+├── backend/
+│   ├── alembic/              # Database migrations
+│   ├── common/               # Shared utilities (Security, Auth)
+│   ├── config/               # Configuration & Environment variables
+│   ├── database/             # DB connection & Session management
+│   ├── models/               # SQLAlchemy Database Models
+│   ├── routes/               # API Endpoints (Stocks, Users, Transactions)
+│   ├── schemas/              # Pydantic Schemas for validation
+│   └── scripts/              # Application entry point (run.py)
+├── Frontend/
+│   ├── public/               # Static assets
+│   └── src/
+│       ├── components/       # Reusable React components
+│       ├── context/          # Global State (AuthContext)
+│       └── pages/            # Page layouts
+├── .gitignore
+└── README.md
+```
+
+## 🚀 Features
 
 - **🔐 Secure Authentication**: 
   - User registration with **bcrypt** password hashing.
@@ -20,30 +54,23 @@ A full-stack stock Trading and Portfolio management application. This project al
   - **Real-time Balance**: Dynamic updates to user balance after every trade.
 
 - **⚡ High Performance**:
-  - **Optimized Database Queries**: Holdings calculation uses SQL aggregation for O(1) performance capability.
-  - **FastAPI**: High-performance backend framework.
+  - **Optimized Database Queries**: Holdings calculation uses SQL aggregation for **O(1)** performance capability.
 
-- **🎨 Modern UI**:
-  - Responsive React Frontend.
-  - Clean and intuitive Dashboard.
-  - Toast notifications for user feedback.
-
-##  Tech Stack
+## 🛠️ Tech Stack
 
 ### Backend
 - **Framework**: FastAPI (Python)
 - **Database**: PostgreSQL
 - **ORM**: SQLAlchemy
 - **Authentication**: JWT & Passlib (Bcrypt)
-- **Migrations**: Alembic
 
 ### Frontend
 - **Framework**: React (Create React App)
-- **Styling**: CSS Modules & Vanilla CSS (Tailwind removed for simplicity)
+- **Styling**: CSS Modules & Vanilla CSS
 - **State Management**: React Context API (`AuthContext`)
 - **HTTP Client**: Axios
 
-##  Installation & Setup
+## ⚙️ Installation & Setup
 
 ### Prerequisites
 - Python 3.9+
@@ -74,11 +101,14 @@ A full-stack stock Trading and Portfolio management application. This project al
     ```
 
 4.  **Configure Environment Variables**:
-    Create a `.env` file in the `backend` directory (or update `backend/config/config.py`):
+    Create a `.env` file in the `backend` directory. You can copy the example below:
+    
+    **File:** `backend/.env`
     ```ini
     DATABASE_URL=postgresql://postgres:password@localhost:5432/stocks_db
-    SECRET_KEY=your_secure_secret_key
+    SECRET_KEY=insert_generated_secret_key_here
     ALGORITHM=HS256
+    ACCESS_TOKEN_EXPIRE_MINUTES=30
     ```
 
 5.  **Run Migrations** (Initialize Database):
@@ -87,7 +117,7 @@ A full-stack stock Trading and Portfolio management application. This project al
     ```
 
 6.  **Start the Server**:
-    Run from the project root directory:
+    Return to the **project root directory** to run the module correctly:
     ```bash
     cd ..
     python -m uvicorn backend.scripts.run:app --reload --port 8000
@@ -111,22 +141,5 @@ A full-stack stock Trading and Portfolio management application. This project al
     ```
     The app should open at `http://localhost:3000`.
 
-## 📖 API Documentation
-
-Once the backend is running, you can access the interactive API docs (Swagger UI) at:
-- **URL**: `http://localhost:8000/docs`
-
-### Key Endpoints
-- `POST /register`: Create a new account.
-- `POST /login`: Authenticate and receive a JWT.
-- `GET /users/{username}`: Get profile and holdings (Protected).
-- `POST /transactions`: Buy/Sell stocks (Protected).
-- `GET /api/crypto/top20`: Fetch live crypto market data.
-
-##  Security Notes
-- Passwords are **never** stored in plain text.
-- API restricts Cross-Origin Resource Sharing (CORS) to `http://localhost:3000` by default.
-- Users must be logged in to perform trades.
-
-##  License
+## 📝 License
 This project is for educational purposes.
