@@ -11,7 +11,7 @@ A full-stack Stock Trading and Portfolio management application. This project en
 
 | Dashboard | Portfolio |
 |-----------|-----------|
-| ![Dashboard](https://github.com/user-attachments/assets/8ab6cf0a-48c3-42a0-a4fa-dc4ccacb0465)| ![Portfolio]("https://github.com/user-attachments/assets/8ab6cf0a-48c3-42a0-a4fa-dc4ccacb0465") |
+| ![Dashboard](https://github.com/user-attachments/assets/8ab6cf0a-48c3-42a0-a4fa-dc4ccacb0465)| ![Portfolio](https://github.com/user-attachments/assets/8ab6cf0a-48c3-42a0-a4fa-dc4ccacb0465) |
 
 ## 📂 Project Structure
 
