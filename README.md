@@ -11,8 +11,7 @@ A full-stack Stock Trading and Portfolio management application. This project en
 
 | Dashboard | Portfolio |
 |-----------|-----------|
-| ![Dashboard](https://placehold.co/600x400?text=Dashboard+Preview) | ![Portfolio](https://placehold.co/600x400?text=Portfolio+Preview) |
-*(Add your actual screenshots here)*
+| ![Dashboard]("https://github.com/user-attachments/assets/eedee862-c246-4fe9-a295-f291901f832c") | ![Portfolio]("https://github.com/user-attachments/assets/8ab6cf0a-48c3-42a0-a4fa-dc4ccacb0465") |
 
 ## 📂 Project Structure
 
