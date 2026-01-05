@@ -1,0 +1,64 @@
+/* ============================================
+   STOCK DETAILS - NEBULA PRIME THEME
+   ============================================ */
+
+.container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 40px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.container h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.stockInfo {
+  background: var(--bg-primary);
+  border-radius: 14px;
+  padding: 24px;
+  border: 1px solid var(--border-color);
+}
+
+.stockInfo p {
+  margin: 12px 0;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: left;
+}
+
+.stockInfo strong {
+  color: var(--text-primary);
+}
+
+.stockInfo .price {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent-buy);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.message {
+  text-align: center;
+  color: var(--accent-sell);
+  background: rgba(255, 64, 129, 0.1);
+  padding: 16px;
+  border-radius: 12px;
+}
+
+@media (max-width: 480px) {
+  .container {
+    margin: 20px;
+    padding: 24px;
+  }
+}

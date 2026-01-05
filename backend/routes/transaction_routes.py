@@ -10,36 +10,82 @@ from backend.schemas.transaction_schema import Transaction_create, TransactionRe
 router = APIRouter()
 
 
+def calculate_user_holdings(db: Session, user_id: int, stock_id: int) -> int:
+    """
+    Calculate the user's current holdings for a specific stock.
+    Returns the net number of units (BUY - SELL).
+    """
+    # Get all transactions for this user and stock
+    transactions = db.query(Transaction).filter(
+        Transaction.user_id == user_id,
+        Transaction.ticker_id == stock_id
+    ).all()
+    
+    holdings = 0
+    for trans in transactions:
+        if trans.transaction_type.upper() == "BUY":
+            holdings += trans.transaction_volume
+        elif trans.transaction_type.upper() == "SELL":
+            holdings -= trans.transaction_volume
+    
+    return max(0, holdings)  # Ensure non-negative
+
+
+from backend.common.security import get_current_user
+
 @router.post("/transactions", response_model=TransactionResponse, status_code=status.HTTP_201_CREATED)
 async def create_transaction(
         transaction: Transaction_create,
-        db: Session = Depends(get_db)
+        db: Session = Depends(get_db),
+        current_user: Users = Depends(get_current_user)
 ):
     """
-    Creates a new transaction (buy/sell stocks), checks balance, updates accordingly.
+    Creates a new transaction (buy/sell stocks), checks balance and holdings, updates accordingly.
     """
     if transaction.transaction_volume <= 0:
-        raise HTTPException(status_code=404, detail="Volume must be greater than 0")
+        raise HTTPException(status_code=400, detail="Volume must be greater than 0")
 
-    if transaction.transaction_type not in ["BUY", "SELL", "sell", "buy"]:
-        raise HTTPException(status_code=404, detail="Transaction type must be BUY or SELL")
+    if transaction.transaction_type.upper() not in ["BUY", "SELL"]:
+        raise HTTPException(status_code=400, detail="Transaction type must be BUY or SELL")
 
-    stock = db.query(Stocks).filter(Stocks.ticker == transaction.ticker).first()
+    stock = db.query(Stocks).filter(Stocks.ticker == transaction.ticker.upper()).first()
     if not stock:
-        raise HTTPException(status_code=404, detail="Stock not found")
+        # Ticker not in database, attempt to sync from crypto data first
+        from backend.routes.stock_routes import fetch_crypto_data, sync_crypto_to_stocks
+        logger.info(f"Ticker {transaction.ticker} not found, attempting auto-sync...")
+        try:
+            # Fetch 250 coins to be safe
+            crypto_data = fetch_crypto_data("usd", count=250)
+            sync_crypto_to_stocks(crypto_data, db)
+            # Try finding it again
+            stock = db.query(Stocks).filter(Stocks.ticker == transaction.ticker.upper()).first()
+        except Exception as e:
+            logger.error(f"Auto-sync failed: {str(e)}")
+            
+    if not stock:
+        raise HTTPException(status_code=404, detail=f"Stock/Token '{transaction.ticker}' not found. Please ensure the ticker is correct.")
 
-    # Query user by username
-    user = db.query(Users).filter(Users.username == transaction.username).first()
-    if not user:
-        raise HTTPException(status_code=404, detail="User not found")
+    # Use the authenticated user
+    user = current_user
 
     transaction_price = stock.stock_price * transaction.transaction_volume
 
-    if transaction.transaction_type.lower() == 'buy':
+    if transaction.transaction_type.upper() == 'BUY':
+        # Check if user has enough balance
         if user.balance < transaction_price:
             raise HTTPException(status_code=400, detail="Insufficient balance")
         user.balance -= transaction_price
-    elif transaction.transaction_type.lower() == 'sell':
+        
+    elif transaction.transaction_type.upper() == 'SELL':
+        # Calculate user's current holdings for this stock
+        user_holdings = calculate_user_holdings(db, user.id, stock.id)
+        
+        if user_holdings < transaction.transaction_volume:
+            raise HTTPException(
+                status_code=400, 
+                detail=f"Insufficient holdings. You only have {user_holdings} units of {stock.ticker}"
+            )
+        
         user.balance += transaction_price
 
     logger.info(f"{transaction.transaction_type} Transaction is created for: {user.username}")
@@ -49,7 +95,7 @@ async def create_transaction(
         ticker_id=stock.id,
         transaction_price=transaction_price,
         transaction_volume=transaction.transaction_volume,
-        transaction_type=transaction.transaction_type
+        transaction_type=transaction.transaction_type.upper()
     )
 
     db.add(new_transaction)
@@ -71,7 +117,15 @@ async def create_transaction(
 
 @router.get("/transactions/{username}", response_model=list[TransactionResponse],
             status_code=status.HTTP_200_OK)
-async def get_transactions_by_username(username: str, db: Session = Depends(get_db)):
+async def get_transactions_by_username(
+    username: str, 
+    db: Session = Depends(get_db),
+    current_user: Users = Depends(get_current_user)
+):
+    # Authorization check
+    if current_user.username != username:
+        raise HTTPException(status_code=403, detail="Not authorized to view these transactions")
+        
     user = db.query(Users).filter(Users.username == username).first()
     logger.info(f"Fetching transactions data for user: {username}")
 
@@ -81,7 +135,8 @@ async def get_transactions_by_username(username: str, db: Session = Depends(get_
     transactions = db.query(Transaction).filter(Transaction.user_id == user.id).all()
 
     if not transactions:
-        raise HTTPException(status_code=404, detail="No transactions found for this user")
+        # Return empty list instead of 404 to avoid frontend errors on empty history
+        return []
 
     response = [
         TransactionResponse(

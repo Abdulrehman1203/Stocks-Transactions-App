@@ -11,6 +11,7 @@ class UserResponse(BaseModel):
     id: int
     username: str
     balance: float
+    holdings: dict[str, float] = {}
 
     class Config:
         from_attributes = True

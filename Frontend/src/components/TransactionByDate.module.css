@@ -1,0 +1,60 @@
+.container {
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.input {
+  width: 90%;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1em;
+}
+
+.button {
+  padding: 10px 15px;
+  font-size: 16px;
+  background-color: #006fff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+
+.message {
+  color: red;
+  font-size: 0.9em;
+  margin-top: 10px;
+}
+
+.transactionList {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.transactionItem {
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.transactionItem p {
+  margin: 5px 0;
+}

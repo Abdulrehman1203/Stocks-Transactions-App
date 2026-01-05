@@ -1,0 +1,189 @@
+/* ============================================
+   SETTINGS - NEBULA PRIME THEME
+   ============================================ */
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: var(--text-secondary);
+    margin-bottom: 32px;
+}
+
+/* Not Logged In State */
+.notLoggedIn {
+    text-align: center;
+    padding: 60px 40px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+}
+
+.iconWrapper {
+    width: 80px;
+    height: 80px;
+    background: rgba(0, 229, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    color: var(--accent-buy);
+}
+
+.notLoggedIn h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+}
+
+.notLoggedIn p {
+    color: var(--text-secondary);
+    margin-bottom: 32px;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.authButtons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btnPrimary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    background: linear-gradient(135deg, var(--accent-buy) 0%, #00B8D4 100%);
+    color: var(--bg-primary);
+    font-weight: 600;
+    font-size: 15px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    box-shadow: 0 0 24px rgba(0, 229, 255, 0.35);
+}
+
+.btnPrimary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 32px rgba(0, 229, 255, 0.5);
+}
+
+.btnSecondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    background: transparent;
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 15px;
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.btnSecondary:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--text-secondary);
+}
+
+/* Settings Grid */
+.settingsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+}
+
+.settingCard {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    position: relative;
+}
+
+.settingCard:hover {
+    border-color: rgba(0, 229, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.settingIcon {
+    width: 48px;
+    height: 48px;
+    background: rgba(0, 229, 255, 0.1);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent-buy);
+    flex-shrink: 0;
+}
+
+.settingInfo {
+    flex: 1;
+}
+
+.settingInfo h3 {
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.settingInfo p {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+.comingSoon {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 4px 10px;
+    background: rgba(139, 92, 246, 0.15);
+    color: #8B5CF6;
+    font-size: 0.7rem;
+    font-weight: 600;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+@media (max-width: 480px) {
+    .notLoggedIn {
+        padding: 40px 24px;
+    }
+
+    .authButtons {
+        flex-direction: column;
+    }
+
+    .settingsGrid {
+        grid-template-columns: 1fr;
+    }
+}

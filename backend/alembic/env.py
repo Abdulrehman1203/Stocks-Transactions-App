@@ -6,10 +6,15 @@ from sqlalchemy import pool
 
 from alembic import context
 from backend.database.db import Base
+import backend.models  # Ensure all models are loaded for target_metadata
+from backend.config.config import settings
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
+
+# Overwrite the sqlalchemy.url in alembic.ini with the one from our settings
+config.set_main_option("sqlalchemy.url", settings.SQLALCHEMY_DATABASE_URL)
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.

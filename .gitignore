@@ -1,6 +1,29 @@
-/.venv
-/docker-compose.yml
-/dump.rdb
-/main.py
-/app.log
-/.idea
+# System Files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+app.log
+logs/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+.env
+
+# IDE
+.idea/
+.vscode/
+
+# Node
+node_modules/
+dist/
+build/
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
